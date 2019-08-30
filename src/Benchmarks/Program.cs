@@ -13,7 +13,6 @@ namespace Benchmarks
         {
             var config = DefaultConfig.Instance
                 .With(Job.Default.With(Runtime.Clr).With(CsProjClassicNetToolchain.Net472))
-                .With(Job.Default.With(Runtime.Core).With(CsProjCoreToolchain.NetCoreApp21))
                 .With(Job.Default.With(Runtime.Core).With(CsProjCoreToolchain.NetCoreApp22))
                 .With(Job.Default.With(Runtime.Core).With(CsProjCoreToolchain.NetCoreApp30))
                 .With(MemoryDiagnoser.Default)
