@@ -3,7 +3,7 @@ using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
-using BenchmarkDotNet.Toolchains.CsProj;
+using BenchmarkDotNet.Toolchains.InProcess.Emit;
 
 namespace Benchmarks
 {
@@ -12,11 +12,12 @@ namespace Benchmarks
         public static void Main(string[] args)
         {
             var config = DefaultConfig.Instance
-                .With(Job.Default.With(Runtime.Clr).With(CsProjClassicNetToolchain.Net472))
-                .With(Job.Default.With(Runtime.Core).With(CsProjCoreToolchain.NetCoreApp22))
-                .With(Job.Default.With(Runtime.Core).With(CsProjCoreToolchain.NetCoreApp30))
-                .With(MemoryDiagnoser.Default)
-                .With(MemoryDiagnoser.Default);
+                .AddJob(Job.Default.WithRuntime(ClrRuntime.Net472).WithToolchain(InProcessEmitToolchain.Instance))
+                .AddJob(Job.Default.WithRuntime(CoreRuntime.Core21).WithToolchain(InProcessEmitToolchain.Instance))
+                .AddJob(Job.Default.WithRuntime(CoreRuntime.Core31).WithToolchain(InProcessEmitToolchain.Instance))
+                // ThreadingDiagnoser is available only in .Net Core 3.0+
+                //.AddDiagnoser(ThreadingDiagnoser.Default)
+                .AddDiagnoser(MemoryDiagnoser.Default);
             
             BenchmarkSwitcher
                 .FromAssembly(typeof(Program).Assembly)
