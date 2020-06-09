@@ -5,16 +5,16 @@ namespace Benchmarks.Strings
 {
     public class FirstToLowerBenchmark
     {
-        public string text;
-
         [Params(5, 10, 20)]
         public int N;
+
+        public string text;
 
         [GlobalSetup]
         public void Setup()
         {
             var dataSet = new DataSet();
-            @text = dataSet.Random.String(length: N);
+            text = dataSet.Random.String(N);
         }
 
         [Benchmark]
