@@ -12,10 +12,9 @@ namespace Benchmarks
         public static void Main(string[] args)
         {
             var config = DefaultConfig.Instance
-                .AddJob(Job.Default.WithRuntime(ClrRuntime.Net472).WithToolchain(InProcessEmitToolchain.Instance))
-                .AddJob(Job.Default.WithRuntime(CoreRuntime.Core21).WithToolchain(InProcessEmitToolchain.Instance))
+                .AddJob(Job.Default.WithRuntime(ClrRuntime.Net48).WithToolchain(InProcessEmitToolchain.Instance))
                 .AddJob(Job.Default.WithRuntime(CoreRuntime.Core31).WithToolchain(InProcessEmitToolchain.Instance))
-                //.AddJob(Job.Default.WithRuntime(CoreRuntime.Core50).WithToolchain(InProcessEmitToolchain.Instance))
+                .AddJob(Job.Default.WithRuntime(CoreRuntime.Core50).WithToolchain(InProcessEmitToolchain.Instance))
                 // ThreadingDiagnoser is available only in .Net Core 3.0+
                 //.AddDiagnoser(ThreadingDiagnoser.Default)
                 .AddDiagnoser(MemoryDiagnoser.Default);
